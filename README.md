@@ -22,9 +22,17 @@ Installation
     cd joulupukki-web && npm start
 ```
 
-Dev
+Use 
 ===
 
+    * using box: ubuntu/trusty64
+    * grunt
+    * virtualenv
+    * pip
+    * npm
+    * git 
+    * ruby
+    * ruby-sass
 
 Tests
 =====
