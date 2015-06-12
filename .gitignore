@@ -1,0 +1,8 @@
+.vagrant
+
+# Source Joulupukki
+joulupukki-api
+joulupukki-worker
+joulupukki-dispatcher
+joulupukki-web
+joulupukki-common
