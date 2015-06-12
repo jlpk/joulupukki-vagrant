@@ -14,8 +14,6 @@ Prerequisite
 Installation
 ============
 
-::
-
     git clone https://github.com/jplk/joulupukki-vagrant
     cd joulupukki-vagrant
     vagrant up 
