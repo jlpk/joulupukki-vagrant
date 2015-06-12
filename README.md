@@ -14,11 +14,13 @@ Prerequisite
 Installation
 ============
 
+```bash
     git clone https://github.com/jplk/joulupukki-vagrant
     cd joulupukki-vagrant
     vagrant up 
     vagrant ssh 
     cd joulupukki-web && npm start
+```
 
 Dev
 ===
