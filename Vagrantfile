@@ -4,15 +4,15 @@
 Vagrant.configure(2) do |config|
 
       	config.vm.box = "ubuntu/trusty64"
-
-   	#config.vm.network "public_network"
-	#config.vm.forward_port 8000, 8000
 	config.vm.network "forwarded_port", guest: 8000, host: 8000
-  
+
+        config.vm.provider "virtualbox" do |vb|
+	   #Display the VirtualBox GUI when booting the machine
+	   vb.memory = "1024"
+	end
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
      sudo apt-get update
-     sudo apt-get install -y python-pip python-virtualenv git wget npm nodejs-legacy ruby ruby-sass 
-     #sudo wget -qO- https://get.docker.com/ | sh
+     sudo apt-get install -y python-pip python-virtualenv git npm nodejs-legacy ruby ruby-sass docker.io
      cd /home/vagrant
      virtualenv /home/vagrant/env_joulupukki
      source /home/vagrant/env_joulupukki/bin/activate
