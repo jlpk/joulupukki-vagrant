@@ -7,12 +7,16 @@ Vagrant.configure(2) do |config|
 	config.vm.network "forwarded_port", guest: 8000, host: 8000
 
         config.vm.provider "virtualbox" do |vb|
-	   #Display the VirtualBox GUI when booting the machine
 	   vb.memory = "1024"
 	end
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
      sudo apt-get update
-     sudo apt-get install -y python-pip python-virtualenv git npm nodejs-legacy ruby ruby-sass docker.io
+     sudo apt-get install -y python-pip python-virtualenv git npm nodejs-legacy ruby ruby-sass docker.io mongodb
+     wget https://www.rabbitmq.com/releases/rabbitmq-server/v3.5.3/rabbitmq-server_3.5.3-1_all.deb -O /tmp/rabbitmq.deb
+     sudo dpkg -i /tmp/rabbitmq.deb
+     sudo apt-get install -f 
+     sudo dpkg -i /tmp/rabbitmq.deb
+
      cd /home/vagrant
      virtualenv /home/vagrant/env_joulupukki
      source /home/vagrant/env_joulupukki/bin/activate
