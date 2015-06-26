@@ -29,23 +29,22 @@ config.vm.provision "shell", privileged: false, inline: <<-SHELL
 
     # Prepare python env
     cd /home/vagrant/source
-    virtualenv /home/vagrant/env_joulupukki
-    source /home/vagrant/source/env_joulupukki/bin/activate
-    pip install watchdog
+    virtualenv /home/vagrant/env
+    /home/vagrant/env/bin/pip install watchdog
 
     # Install of joulupukki-common
     cd /home/vagrant/source
     git clone https://github.com/jlpk/joulupukki-common common || echo "jlpk-common seems already here. Don't forget `git pull`"
     cd common
-    pip install -r requirements.txt
-    python setup.py develop
+    /home/vagrant/env/bin/pip install -r requirements.txt
+    /home/vagrant/env/bin/python setup.py develop
 
     # Install of joulupukki-worker
     cd /home/vagrant/source
     git clone https://github.com/jlpk/joulupukki-worker worker || echo "jlpk-worker seems already here. Don't forget `git pull`"
     cd worker
-    pip install -r requirements.txt
-    python setup.py develop
+    /home/vagrant/env/bin/pip install -r requirements.txt
+    /home/vagrant/env/bin/python setup.py develop
     #screen -S worker -d -m 
     #screen -S worker
 
@@ -53,15 +52,15 @@ config.vm.provision "shell", privileged: false, inline: <<-SHELL
     cd /home/vagrant/source
     git clone https://github.com/jlpk/joulupukki-api api || echo "jlpk-api seems already here. Don't forget `git pull`"
     cd api
-    pip install -r requirements.txt
-    python setup.py develop
+    /home/vagrant/env/bin/pip install -r requirements.txt
+    /home/vagrant/env/bin/python setup.py develop
 
     # Install of joulupukki-dispatcher
     cd /home/vagrant/source
     git clone https://github.com/jlpk/joulupukki-dispatcher dispatcher || echo "jlpk-dispatcher seems already here. Don't forget `git pull`"
     cd dispatcher
-    pip install -r requirements.txt
-    python setup.py develop
+    /home/vagrant/env/bin/pip install -r requirements.txt
+    /home/vagrant/env/bin/python setup.py develop
 
     # Install of joulupukki-web
     cd /home/vagrant/source
