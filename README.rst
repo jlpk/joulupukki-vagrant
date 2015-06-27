@@ -14,16 +14,26 @@ Prerequisite
 Installation
 ============
 
-```bash
+::
+
     git clone https://github.com/jplk/joulupukki-vagrant
     cd joulupukki-vagrant
     vagrant up 
     vagrant ssh 
-    cd joulupukki-web && npm start
-```
 
-Use 
-===
+Access to tmuxs
+===============
+
+::
+
+    tmux a -t web
+    tmux a -t api
+    tmux a -t dispatcher
+    tmux a -t worker
+
+
+This vagrant file use
+=====================
 
     * using box: ubuntu/trusty64
     * grunt

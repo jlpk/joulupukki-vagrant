@@ -9,7 +9,6 @@ Vagrant.configure(2) do |config|
     config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"
     config.vm.synced_folder "source", "/home/vagrant/source"
-    #config.vm.provision "file",   source: "apache.conf", destination: "/etc/apache2/sites-enabled/joulupukki.conf"
 end
 
 
@@ -30,7 +29,7 @@ config.vm.provision "shell", privileged: false, inline: <<-SHELL
     # Prepare python env
     cd /home/vagrant/source
     virtualenv /home/vagrant/env
-    /home/vagrant/env/bin/pip install watchdog
+    /home/vagrant/env/bin/pip install watchdog ipdb ipython
 
     # Install of joulupukki-common
     cd /home/vagrant/source
@@ -39,14 +38,16 @@ config.vm.provision "shell", privileged: false, inline: <<-SHELL
     /home/vagrant/env/bin/pip install -r requirements.txt
     /home/vagrant/env/bin/python setup.py develop
 
+
     # Install of joulupukki-worker
     cd /home/vagrant/source
     git clone https://github.com/jlpk/joulupukki-worker worker || echo "jlpk-worker seems already here. Don't forget `git pull`"
     cd worker
     /home/vagrant/env/bin/pip install -r requirements.txt
     /home/vagrant/env/bin/python setup.py develop
-    #screen -S worker -d -m 
-    #screen -S worker
+    tmux new -d -s worker
+    tmux send -t worker 'cd /home/vagrant/source/worker' ENTER
+    tmux send -t worker '/home/vagrant/env/bin/pecan serve --reload config.py' ENTER
 
     # Install of joulupukki-api
     cd /home/vagrant/source
@@ -54,6 +55,9 @@ config.vm.provision "shell", privileged: false, inline: <<-SHELL
     cd api
     /home/vagrant/env/bin/pip install -r requirements.txt
     /home/vagrant/env/bin/python setup.py develop
+    tmux new -d -s api
+    tmux send -t api 'cd /home/vagrant/source/api' ENTER
+    tmux send -t api '/home/vagrant/env/bin/pecan serve --reload config.py' ENTER
 
     # Install of joulupukki-dispatcher
     cd /home/vagrant/source
@@ -61,15 +65,19 @@ config.vm.provision "shell", privileged: false, inline: <<-SHELL
     cd dispatcher
     /home/vagrant/env/bin/pip install -r requirements.txt
     /home/vagrant/env/bin/python setup.py develop
+    tmux new -d -s dispatcher
+    tmux send -t dispatcher 'cd /home/vagrant/source/dispatcher' ENTER
+    tmux send -t dispatcher '/home/vagrant/env/bin/pecan serve --reload config.py' ENTER
 
     # Install of joulupukki-web
     cd /home/vagrant/source
     git clone https://github.com/jlpk/joulupukki-web web || echo "jlpk-web seems already here. Don't forget `git pull`"
-    source /home/vagrant/source/web/dev_virtualenv
-    #cd /home/vagrant/web && npm install grunt-cli
-    #cd /home/vagrant/web && npm install
-
-    #cd /home/vagrant/web && node_modules/grunt-cli/bin/grunt  
+    cd /home/vagrant/source/web && npm install grunt-cli
+    cd /home/vagrant/source/web && npm install bower
+    cd /home/vagrant/source/web && npm install
+    tmux new -d -s web
+    tmux send -t web 'cd /home/vagrant/source/web' ENTER
+    tmux send -t web 'node_modules/grunt-cli/bin/grunt' ENTER
 
     SHELL
 end
