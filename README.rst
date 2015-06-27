@@ -16,7 +16,7 @@ Installation
 
 ::
 
-    git clone https://github.com/jplk/joulupukki-vagrant
+    git clone https://github.com/jlpk/joulupukki-vagrant.git
     cd joulupukki-vagrant
     vagrant up 
     vagrant ssh 
