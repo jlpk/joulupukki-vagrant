@@ -2,7 +2,7 @@
 Joulupukki Vagrant
 ===================
 
-Deploy Joulupukki with Vagrant
+Get Joulupukki Env Dev with Vagrant
 
 
 Prerequisite
