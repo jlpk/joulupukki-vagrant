@@ -17,6 +17,9 @@ config.vm.provision "shell", privileged: false, inline: <<-SHELL
     sudo apt-get update
     sudo apt-get install -y python-pip python-virtualenv git npm nodejs-legacy ruby ruby-sass docker.io mongodb rabbitmq-server apache2 build-essential python-dev tmux
 
+    # copy configuration tmux for scroll 
+    cp /vagrant/tmux.conf /home/vagrant/.tmux.conf
+
     # Prepare python env
     cd /home/vagrant/source
     virtualenv /home/vagrant/env
