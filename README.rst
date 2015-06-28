@@ -19,13 +19,15 @@ Installation
     git clone https://github.com/jlpk/joulupukki-vagrant.git
     cd joulupukki-vagrant
     vagrant up 
-    vagrant ssh 
+    firefox http://localhost:8888 
 
 Access to tmuxs
 ===============
 
 ::
 
+    # In the directory: 
+    vagrant ssh 
     tmux a -t web
     tmux a -t api
     tmux a -t dispatcher
